@@ -1,0 +1,28 @@
+class Solution {
+    public String maximumOddBinaryNumber(String s) {
+        int c1=0,c2=0;
+        for(char a : s.toCharArray()){
+            if(a=='1') c1++;
+            else if(a=='0') c2++;
+        }
+        StringBuilder s1=new StringBuilder();
+        s1.append("1".repeat(c1-1));
+        s1.append("0".repeat(c2));
+        s1.append("1");
+        return s1.toString();
+    }
+}
+/*
+            s = "010110"
+Lets just count no. of 1's and 0's.
+            cnt1 = 3 and cnt0 = 3
+Since we need greatest odd number we obviously need one 1 
+at the last to make it odd and best chances to make it greatest 
+is by putting rest every 1's at the front.
+
+            ans = "11" + "000" + "1"
+
+            ans = "110001"
+
+Will work for all cases, try it out:)
+*/
