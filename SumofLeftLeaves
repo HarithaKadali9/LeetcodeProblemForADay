@@ -1,0 +1,52 @@
+Solution-1:
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        int res=0;
+        Queue<Pair<TreeNode, Boolean>> queue=new LinkedList<>();
+        queue.offer(new Pair<>(root, false));
+        while(!queue.isEmpty()){
+            Pair<TreeNode, Boolean> pair=queue.poll();
+            TreeNode node =pair.getKey();
+            boolean isleft=pair.getValue();
+            
+            if(node.left!=null){
+                queue.offer(new Pair<>(node.left, true));
+            }
+            if(node.right!=null) queue.offer(new Pair<>(node.right, false));
+            if(node.left==null && node.right==null && isleft) res+=node.val;
+        }
+        return res;
+    }
+}
+----------------------------------------------------------------------------------------------------
+
+
+Solution-2:(100% Beats)
+class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        int res=0;
+        if(root==null) return 0;
+        if(root.left!=null){
+            if(root.left.left==null && root.left.right==null) res+=root.left.val;
+            else res+=sumOfLeftLeaves(root.left);
+        }
+        res+=sumOfLeftLeaves(root.right);
+        return res;
+    }
+}
