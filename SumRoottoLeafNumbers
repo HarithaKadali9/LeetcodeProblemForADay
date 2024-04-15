@@ -1,0 +1,11 @@
+class Solution {
+    public int sumNumbers(TreeNode root) {
+        return dfs(root,0);
+    }
+    private int dfs(TreeNode node, int pathsum){
+        if(node==null) return 0;
+        pathsum=pathsum*10+node.val;
+        if(node.left==null && node.right==null) return pathsum;
+        return dfs(node.left, pathsum)+ dfs(node.right, pathsum);
+    }
+}
